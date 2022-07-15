@@ -7,21 +7,25 @@ import LoginWindow from './components/LoginWindow.vue'
 
 <template>
   <div class="content">
-    <LoginWindow class="LoginWindow" title="请先登录 :)" ></LoginWindow>
+    <LoginWindow class="login-Window" title="请先登录 :)" ></LoginWindow>
   </div>
 </template>
 
-<style scoped>
+<style>
+html,body{
+  margin: 0;
+  padding: 0;
+}
 .content{
   width: 100vw;
   height: 100vh;
   background: linear-gradient( 45deg, #37c7f7, #00d38d)
 }
-.LoginWindow{
+.login-Window{
   max-width: 300px;
   max-height: 400px;
   position: relative;
-  top: 40%;
+  top: calc(50% - 400px/2);
   margin: auto;
 }
 /* .logo {
