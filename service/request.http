@@ -1,0 +1,14 @@
+# 测试token
+
+POST http://localhost:3888/login
+Content-Type: application/json
+
+{
+    "username": "zhuangsan",
+    "pswmd5": "0C59F1756B201E2BDFD5AAA6162E9073"
+}
+
+###
+ 
+GET http://localhost:3888/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InpodWFuZ3NhbiIsImlhdCI6MTY1ODA3NTYxNywiZXhwIjoxNjU4MDc1NzA3fQ.7HCRirojVpW7-1WyuguN9Ie5EZqUhV_50v2lhpQTbLA
