@@ -5,6 +5,16 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server:{
-    port: "5588"
+    port: "3889",
+    host: 'localhost',
+    // //配置本地跨域
+    proxy: {
+      '/login': {
+        target: 'http://localhost:3888/login',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/login/, '') // 不可以省略rewrite
+      }
+    }
   }
+
 })
