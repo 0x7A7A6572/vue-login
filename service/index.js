@@ -4,8 +4,8 @@ const jwtKey = 'you-jwt-token';
 const app = express();
 //演示数据库数据
 const database = {
-    username: 'zhuangsan',
-    pswmd5: '0C59F1756B201E2BDFD5AAA6162E9073', //-> this.is.password.001
+    username: 'zzerx',
+    pswmd5: 'e10adc3949ba59abbe56e057f20f883e', //-> 123456
     preview: '我叫张三'
 };
 //解析Json
@@ -15,7 +15,7 @@ app.post('/login', (req, res) => {
     const { username, pswmd5 } = req.body;
     console.log("请求登录：", username, pswmd5);
     //简单验证用户名密码 *更完善可以使用 express-validator
-    if (username === database.username && pswmd5 === database.pswmd5) {
+    if (username == database.username && pswmd5 == database.pswmd5) {
         //使用jwt签名数据
         jwt.sign({ username },     //给客户端的token数据
             jwtKey,                //密钥
@@ -33,7 +33,8 @@ app.post('/login', (req, res) => {
             })
 
     } else {
-        res.json({ msg: "登录失败" });
+        
+        res.json({ msg: "登录失败"});
     }
 })
 
@@ -58,8 +59,8 @@ app.get('/',(req,res) => {
     })
 })
 
-app.listen(3888, () => {
-    console.log("服务器已启动![:3888]...")
+app.listen(3888, 'localhost', () => {
+    console.log("服务器已启动![localhost:3888]...")
 })
 
 /** 获取authorization */
