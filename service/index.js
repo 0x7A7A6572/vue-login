@@ -5,8 +5,9 @@ const app = express();
 //演示数据库数据
 const database = {
     username: 'zzerx',
-    pswmd5: 'e10adc3949ba59abbe56e057f20f883e', //-> 123456
-    preview: '我叫张三'
+    pswmd5: 'dc483e80a7a0bd9ef71d8cf973673924', //-> a123456
+    preview: '我叫张三',
+    avatar: 'https://zzerx.cn/Artwork/art/illustration/illustration2.png'
 };
 //解析Json
 app.use(express.json());
@@ -25,7 +26,8 @@ app.post('/login', (req, res) => {
                 res.json({
                     msg: "登录成功", userInfo: {
                         username,
-                        preview: database.preview
+                        preview: database.preview,
+                        avatar: database.avatar
                     },
                     token
                 });
@@ -39,22 +41,34 @@ app.post('/login', (req, res) => {
 })
 
 //主页面
-app.get('/',(req,res) => {
+/**
+ *   规定返回状态： -1 token过期， 0 无效的token， 1 验证成功，
+ * 
+ */
+app.get('/index',(req,res) => {
     const headers = req.headers;
     const token = getAuthorzation(headers).token;
     //验证token
     jwt.verify(token, jwtKey, (err, payload) => {
+        let state = 0;
         if(err){
             let errMsg = '验证失败：';
             if(err.name == 'TokenExpiredError'){//token过期
                 errMsg += 'token过期'
+                state = -1;
             }else if(err.name == 'JsonWebTokenError'){//无效的token
-                errMsg += '无效的token'
+                errMsg += '无效的token';
+                state = 0;
             }
-            console.log(errMsg);
-            res.json({msg: errMsg, payload});
+            console.log(errMsg, state);
+            res.json({msg: errMsg, state, payload});
         }else{
-            res.json({msg:"验证成功", payload});
+            state = 1;
+            res.json({msg:"验证成功", state, payload, userInfo: {
+                username: database.username,
+                preview: database.preview,
+                avatar: database.avatar
+            }});
         }
     })
 })
