@@ -56,7 +56,7 @@ let qualifiedUsername = ref(true);
 
 /** 监听用户名密码正确性 */
 watch([qualifiedPassword, qualifiedUsername], (newVal) => {
-   console.log(newVal)
+  //  console.log(newVal)
    if(newVal[0] == true && newVal[1] == true){
     loginButtonDisable.value = false;
     msg.value = '';
